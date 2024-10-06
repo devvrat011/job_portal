@@ -8,6 +8,8 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import path from 'path';
+import mongoose from "mongoose";
+import { error } from "console";
 
 dotenv.config({});
 
@@ -18,6 +20,7 @@ const corsOptions = {
     },
     credentials: true // Allows credentials to be sent
 }
+
 
 // Enable CORS for all requests or specify your frontend URL
 app.use(cors(corsOptions));
@@ -31,6 +34,11 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+    app.listen(PORT,()=>console.log(`Server port : ${PORT}`));
+})
+.catch((error)=>console.log(`${error} did not connect`));
+
 // api's
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
@@ -43,7 +51,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
-app.listen(PORT, async ()=>{
-    await connectDB();
-    console.log(`Server running at port ${PORT}`);
-})
+// app.listen(PORT, async ()=>{
+//     await connectDB();
+//     console.log(`Server running at port ${PORT}`);
+// })
