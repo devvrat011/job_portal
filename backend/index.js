@@ -13,7 +13,7 @@ dotenv.config({});
 
 const app = express();
 const corsOptions = {
-    origin:'https://job-portal-54ue.onrender.com/',
+    origin: '*',
     credentials:true
 }
 
