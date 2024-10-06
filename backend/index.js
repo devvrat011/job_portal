@@ -43,7 +43,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
-app.listen(PORT,()=>{
-    connectDB();
+app.listen(PORT, async ()=>{
+    await connectDB();
     console.log(`Server running at port ${PORT}`);
 })
