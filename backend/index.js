@@ -13,8 +13,10 @@ dotenv.config({});
 
 const app = express();
 const corsOptions = {
-    origin: '*',
-    credentials:true
+    origin: function (origin, callback) {
+        callback(null, true); // Allow all origins
+    },
+    credentials: true // Allows credentials to be sent
 }
 
 // Enable CORS for all requests or specify your frontend URL
