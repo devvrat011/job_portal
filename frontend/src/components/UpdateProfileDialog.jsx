@@ -9,7 +9,7 @@ import axios from 'axios'
 import { USER_API_END_POINT } from '@/utils/constant'
 import { setUser } from '@/redux/authSlice'
 import { toast } from 'sonner'
-
+import CloseIcon from '@mui/icons-material/Close';
 const UpdateProfileDialog = ({ open, setOpen }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector(store => store.auth);
@@ -72,9 +72,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         <div>
             <Dialog open={open}>
                 <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
-                    <DialogHeader>
+                    <DialogHeader className="relative">
                         <DialogTitle>Update Profile</DialogTitle>
+                        <div className='absolute right-2 -top-3 cursor-pointer rounded-xl border-2 border-black p-1 flex flex-col justify-center ' onClick={()=>setOpen(false)}><CloseIcon style={{color:"grey",fontSize:"20px"}} /></div>
                     </DialogHeader>
+
                     <form onSubmit={submitHandler}>
                         <div className='grid gap-4 py-4'>
                             <div className='grid grid-cols-4 items-center gap-4'>
@@ -83,7 +85,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     id="name"
                                     name="name"
                                     type="text"
-                                    value={input.fullname}
+                                    placeholder={input.fullname}
+                                    // value={input.fullname}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
@@ -94,7 +97,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    value={input.email}
+                                    placeholder={input.email}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
@@ -104,7 +107,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Input
                                     id="number"
                                     name="number"
-                                    value={input.phoneNumber}
+                                    placeholder={input.phoneNumber}
+                                  
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
@@ -114,7 +118,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Input
                                     id="bio"
                                     name="bio"
-                                    value={input.bio}
+                                    placeholder={input.bio}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
@@ -124,7 +128,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Input
                                     id="skills"
                                     name="skills"
-                                    value={input.skills}
+                                 
+                                    placeholder={input.skills}
                                     onChange={changeEventHandler}
                                     className="col-span-3"
                                 />
