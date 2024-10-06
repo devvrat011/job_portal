@@ -11,8 +11,6 @@ import path from 'path';
 
 dotenv.config({});
 
-const __dirname = path.resolve();
-
 const app = express();
 const corsOptions = {
     origin:'http://127.0.0.1:5173',
@@ -21,6 +19,8 @@ const corsOptions = {
 
 // Enable CORS for all requests or specify your frontend URL
 app.use(cors(corsOptions));
+
+const __dirname = path.resolve();
 
 // middleware
 app.use(express.json());
