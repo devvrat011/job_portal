@@ -45,14 +45,13 @@ const Signup = () => {
         if (input.file) {
             formData.append("file", input.file); // Append file if it exists
         }
-        console.log(input.file);
+        // console.log(input.file);
         try {
             dispatch(setLoading(true));
 
             const res = await fetch(`${USER_API_END_POINT}/register`, {
                 method: 'POST',
                 body: formData, 
-             
             });
 
             const data = await res.json();
