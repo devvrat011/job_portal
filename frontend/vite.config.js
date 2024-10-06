@@ -6,7 +6,7 @@ export default defineConfig({
   server:{
     proxy:{
       '/api':{
-        target:'https://job-portal-xi-one.vercel.app/',
+        target:'https://job-portal-seven-rho.vercel.app/',
         secure:false,
       },
     },
