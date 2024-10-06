@@ -49,7 +49,7 @@ const Signup = () => {
         try {
             dispatch(setLoading(true));
 
-            const res = await fetch('http://localhost:8000/api/v1/user/register', {
+            const res = await fetch('api/v1/user/register', {
                 method: 'POST',
                 body: formData, 
              
