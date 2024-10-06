@@ -48,11 +48,17 @@ const Signup = () => {
         // console.log(input.file);
         try {
             dispatch(setLoading(true));
-
-            const res = await fetch(`${USER_API_END_POINT}/register`, {
-                method: 'POST',
-                body: formData, 
+            const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true,
             });
+
+            // const res = await fetch(`${USER_API_END_POINT}/register`, {
+            //     method: 'POST',
+            //     body: formData, 
+            // });
 
             const data = await res.json();
             console.log(data);
