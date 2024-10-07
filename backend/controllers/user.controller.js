@@ -114,13 +114,19 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        
         const file = req.file;
+     
+        // if(!file){
+        //     return res.status(400).json({
+        //         message: "Fill out all the details.",
+        //         success: false
+        //     });
+        // }
         // cloudinary ayega idhar
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
-        console.log(cloudResponse);
+        // console.log(cloudResponse);
 
         let skillsArray;
         if(skills){
@@ -145,8 +151,8 @@ export const updateProfile = async (req, res) => {
         // resume comes later here...
         // console.log(cloudResponse);
         if(cloudResponse){
-            user.profile.resume = cloudResponse.secure_url // save the cloudinary url
-            user.profile.resumeOriginalName = file.originalname // Save the original file name
+            user.profile.resume = cloudResponse?.secure_url // save the cloudinary url
+            user.profile.resumeOriginalName = file?.originalname // Save the original file name
         }
 
 

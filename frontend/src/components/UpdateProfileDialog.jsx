@@ -36,14 +36,20 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fullname", input.fullname);
+        formData.append("fullname", input.fullname );
         formData.append("email", input.email);
         formData.append("phoneNumber", input.phoneNumber);
-        formData.append("bio", input.bio);
+        formData.append("bio", input.bio );
         formData.append("skills", input.skills);
-        if (input.file) {
-            formData.append("file", input.file);
+        if (input.file ) {
+            console.log(user?.profile?.resume);
+            formData.append("file", input.file );
         }
+        else{
+            formData.append("file", user?.profile?.resume );
+        }
+        console.log(formData);
+        console.log(user);
         try {
             setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
@@ -82,8 +88,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="name" className="text-right">Name</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
+                                    id="fullname"
+                                    name="fullname"
                                     type="text"
                                     placeholder={input.fullname}
                                     // value={input.fullname}
@@ -105,8 +111,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             <div className='grid grid-cols-4 items-center gap-4'>
                                 <Label htmlFor="number" className="text-right">Number</Label>
                                 <Input
-                                    id="number"
-                                    name="number"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
                                     placeholder={input.phoneNumber}
                                   
                                     onChange={changeEventHandler}

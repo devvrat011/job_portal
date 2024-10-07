@@ -61,15 +61,15 @@ const Signup = () => {
             // });
 
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
 
             if (data.success) {
                 navigate("/login");
-                // toast.success(data.message); // Optional toast message
+                toast.success(data.message); // Optional toast message
             }
         } catch (error) {
-            console.log(error);
-            // toast.error("Something went wrong."); // Optional error message
+            // console.log(error);
+            toast.error("Something went wrong."); // Optional error message
         } finally {
             dispatch(setLoading(false));
         }
