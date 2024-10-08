@@ -36,20 +36,20 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fullname", input.fullname );
-        formData.append("email", input.email);
-        formData.append("phoneNumber", input.phoneNumber);
-        formData.append("bio", input.bio );
-        formData.append("skills", input.skills);
-        if (input.file ) {
-            console.log(user?.profile?.resume);
-            formData.append("file", input.file );
-        }
-        else{
+        formData.append("fullname", input.fullname || user?.fullname);
+        formData.append("email", input.email || user?.email);
+        formData.append("phoneNumber", input.phoneNumber || user?.phoneNumber);
+        formData.append("bio", input.bio || user?.bio);
+        formData.append("skills", input.skills || user?.profile?.skills?.map(skill => skill));
+        // console.log(input.file);
+        // console.log("sdf");
+        if (input.file==="" || !input.file) {
+            // console.log(user?.profile?.resume );
             formData.append("file", user?.profile?.resume );
         }
-        console.log(formData);
-        console.log(user);
+        else{
+            formData.append("file", input.file );
+        }
         try {
             setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
@@ -63,13 +63,13 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 toast.success(res.data.message);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error(error.response.data.message);
         } finally{
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
+        // console.log(input);
     }
 
 
