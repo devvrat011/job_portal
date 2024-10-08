@@ -45,9 +45,9 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-app.get('/', (req, res) => {
-    res.send("Server is running");
-});
+// app.get('/', (req, res) => {
+//     res.send("Server is running");
+// });
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
 app.get('*', (req, res) => {
