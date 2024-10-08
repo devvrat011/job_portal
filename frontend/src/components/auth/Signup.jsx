@@ -22,7 +22,7 @@ const Signup = () => {
         role: "",
         file: ""
     });
-    const { loading, user } = useSelector(store => store.auth);
+    const {loading,user} = useSelector(store=>store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -34,52 +34,39 @@ const Signup = () => {
     }
     const submitHandler = async (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-
+        const formData = new FormData();    //formdata object
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
         formData.append("phoneNumber", input.phoneNumber);
         formData.append("password", input.password);
         formData.append("role", input.role);
         if (input.file) {
-            formData.append("file", input.file); // Append file if it exists
+            formData.append("file", input.file);
         }
-        // console.log(input.file);
+
         try {
             dispatch(setLoading(true));
             const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { 'Content-Type': "multipart/form-data" },
                 withCredentials: true,
             });
-
-            // const res = await fetch(`${USER_API_END_POINT}/register`, {
-            //     method: 'POST',
-            //     body: formData, 
-            // });
-
-            const data = await res.json();
-            // console.log(data);
-
-            if (data.success) {
+            if (res.data.success) {
                 navigate("/login");
-                toast.success(data.message); // Optional toast message
+                toast.success(res.data.message);
             }
         } catch (error) {
-            // console.log(error);
-            toast.error("Something went wrong."); // Optional error message
-        } finally {
+            console.log(error);
+            toast.error(error.response.data.message);
+        } finally{
             dispatch(setLoading(false));
         }
     }
 
-    useEffect(() => {
-        if (user) {
+    useEffect(()=>{
+        if(user){
             navigate("/");
         }
-    }, [])
+    },[])
     return (
         <div>
             <Navbar />
